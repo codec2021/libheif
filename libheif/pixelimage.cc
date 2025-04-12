@@ -1354,6 +1354,12 @@ Error HeifPixelImage::scale_nearest_neighbor(std::shared_ptr<HeifPixelImage>& ou
     if (auto err = out_img->add_plane(heif_channel_interleaved, width, height, get_bits_per_pixel(heif_channel_interleaved), limits)) {
       return err;
     }
+
+    if (has_channel(heif_channel_Alpha)) {
+      if (auto err = out_img->add_plane(heif_channel_Alpha, width, height, get_bits_per_pixel(heif_channel_Alpha), limits)) {
+        return err;
+      }
+    }
   }
   else {
     if (get_colorspace() == heif_colorspace_RGB) {
